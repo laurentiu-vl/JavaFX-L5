@@ -23,6 +23,10 @@ public class QuizHandler {
 
     private List<Question> questions = new ArrayList<>();
 
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
     public boolean isQuizStarted() {
         return quizStarted;
     }
@@ -30,6 +34,8 @@ public class QuizHandler {
     private boolean quizStarted = false;
 
     private int currentQuestion = 0;
+
+
 
     public void run(){ //start the quiz
         quizStarted = true;
@@ -98,10 +104,10 @@ public class QuizHandler {
     public boolean checkQuizRunMore (Question question, String answer){
         //check if the answers are incorrect or correct
         if(question.getCorrectAns().equals(answer)){
-            correctAns += 1;
+            correctAns = correctAns + 1;
         }
         else{
-            incorrectAns += 1;
+            incorrectAns = incorrectAns + 1;
         }
         if(incorrectAns >= 5){
             //stops the quiz if nr. of inc answers are >=5
@@ -124,9 +130,4 @@ public class QuizHandler {
         }
         return null;
     }
-
-    public List<Question> getQuestions() {
-        return questions;
-    }
-
 }

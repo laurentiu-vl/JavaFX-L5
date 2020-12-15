@@ -53,7 +53,7 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        nextQuestion.setDisable(true); //start quiz with the questions unloaded
+        nextQuestion.setDisable(true); //start quiz with the questions unloaded --poate merge si fara
     }
 
     public void startQuiz(){
@@ -104,16 +104,15 @@ public class Controller implements Initializable {
         timeline.play();
     }
 
-    //Accepts the user input and calls loadNextQuestion()
     public void buttonNextQuestion(){
 
         if(!handler.isQuizStarted()){ //chech is quiz is out
             return;
         }
 
-        RadioButton selected = (RadioButton) questionOptions.getSelectedToggle(); //select opt
+        RadioButton user_option = (RadioButton) questionOptions.getSelectedToggle(); //select opt
 
-        boolean checkQuizOver = handler.checkQuizRunMore(currentQuestion, selected.getText()); //check the answer and then nr. of c/i answer
+        boolean checkQuizOver = handler.checkQuizRunMore(currentQuestion, user_option.getText()); //check the answer and then nr. of c/i answer
         correctAnswers.setText(String.valueOf(handler.getCorrectAnswers()));
         incorrectAnswers.setText(String.valueOf(handler.getIncorrectAnswers()));
 
@@ -130,7 +129,6 @@ public class Controller implements Initializable {
 
     }
 
-    //Loads the next question into the GUI
     private void loadNextQuestion(){
         currentQuestion = handler.getNextQuestion(); //get next q from Handler
 
