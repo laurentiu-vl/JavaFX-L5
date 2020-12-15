@@ -53,7 +53,7 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        nextQuestion.setDisable(true); //start with the questions unloaded
+        nextQuestion.setDisable(true); //start quiz with the questions unloaded
     }
 
     public void startQuiz(){
@@ -64,39 +64,32 @@ public class Controller implements Initializable {
             alert.showAndWait();
             return;
         }
-        //Check if the quiz has already been started; if it has, restart it
-        if(!handler.isQuizStarted()){
-            //Quiz isn't started
-            //Start the quiz
+
+        if(!handler.isQuizStarted()){ //check if quiz is started; if no, start it
             handler.run();
-            //Start the timer animation
             startTimerAnimation();
 
         }
-        else{
-            //Quiz is started
-            //Restart the quiz
+        else{           //else restart quiz
             handler.restart();
-            //restart timer animation
             startTimerAnimation();
 
         }
         nextQuestion.setDisable(false);
-        loadNextQuestion();
-        //Load the labels with the data
+        loadNextQuestion(); //load the next q and show c/i ans
         correctAnswers.setText(String.valueOf(handler.getCorrectAnswers()));
         incorrectAnswers.setText(String.valueOf(handler.getIncorrectAnswers()));
 
     }
 
 
-    //Starts the timer animation
-    private void startTimerAnimation(){
+
+    private void startTimerAnimation(){ //timer function
         if(timeline != null){
             timeline.stop();
         }
-        //Find the end time (the time when the quiz will end
-        endTime = System.currentTimeMillis() + timeDurationMillis;
+
+        endTime = System.currentTimeMillis() + timeDurationMillis; //time when quiz will finish
 
         timeline = new Timeline(new KeyFrame( Duration.millis(500), event -> {
             long diff = endTime - System.currentTimeMillis();
@@ -113,27 +106,23 @@ public class Controller implements Initializable {
 
     //Accepts the user input and calls loadNextQuestion()
     public void buttonNextQuestion(){
-        //Check if the quiz is running
-        if(!handler.isQuizStarted()){
+
+        if(!handler.isQuizStarted()){ //chech is quiz is out
             return;
         }
 
+        RadioButton selected = (RadioButton) questionOptions.getSelectedToggle(); //select opt
 
-        //Get the selection
-        RadioButton selected = (RadioButton) questionOptions.getSelectedToggle();
-        //Check if the answer is correct and log it into the manager
-        boolean checkQuizOver = handler.checkQuizRunMore(currentQuestion, selected.getText());
-        //Update the answer labels
+        boolean checkQuizOver = handler.checkQuizRunMore(currentQuestion, selected.getText()); //check the answer and then nr. of c/i answer
         correctAnswers.setText(String.valueOf(handler.getCorrectAnswers()));
         incorrectAnswers.setText(String.valueOf(handler.getIncorrectAnswers()));
-        //End the quiz if there are too many wrong answers
+
         if( checkQuizOver == false){
 
             endQuiz();
         }
 
-        //Remove the selection from the radio buttons
-        option1.setSelected(false);
+        option1.setSelected(false);  //remove buttons, and load next q
         option2.setSelected(false);
         option3.setSelected(false);
 
@@ -143,18 +132,18 @@ public class Controller implements Initializable {
 
     //Loads the next question into the GUI
     private void loadNextQuestion(){
-        currentQuestion = handler.getNextQuestion();
+        currentQuestion = handler.getNextQuestion(); //get next q from Handler
 
         if(currentQuestion == null){
-            //The quiz is over
+
             endQuiz();
             return;
         }
-        //Load the question's data into the text boxes
-        questionText.setText(currentQuestion.getText());
-        //Get the shuffled answers
-        List<String> options = currentQuestion.getShuffledAnswers();
-        //Load them into the buttons
+
+        questionText.setText(currentQuestion.getText()); //load q in textb
+
+        List<String> options = currentQuestion.getShuffledAnswers(); //get random opt
+
         option1.setText(options.get(0));
         option2.setText(options.get(1));
         option3.setText(options.get(2));
