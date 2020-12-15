@@ -150,7 +150,6 @@ public class Controller implements Initializable {
             endQuiz();
             return;
         }
-
         //Load the question's data into the text boxes
         questionText.setText(currentQuestion.getText());
         //Get the shuffled answers
@@ -159,8 +158,6 @@ public class Controller implements Initializable {
         option1.setText(options.get(0));
         option2.setText(options.get(1));
         option3.setText(options.get(2));
-
-
     }
 
     private void endQuiz(){
@@ -179,8 +176,5 @@ public class Controller implements Initializable {
 
         quizOver.setTitle("Quiz over!");
         quizOver.showAndWait();
-
     }
-
-
 }
