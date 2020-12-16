@@ -46,10 +46,11 @@ public class Controller implements Initializable {
 
     private Question currentQuestion = null; //the current question being displayed
 
-    public void setManager(QuizHandler manager) {
-        this.handler = manager;
+    public void setHandler(QuizHandler handler) {
+        this.handler = handler;
     }
 
+    //overriding the base initalize method of Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -76,20 +77,19 @@ public class Controller implements Initializable {
 
         }
         nextQuestion.setDisable(false);
-        loadNextQuestion(); //load the next q and show c/i ans
+        loadNextQuestion(); //load the next question and show c/i answers
         correctAnswers.setText(String.valueOf(handler.getCorrectAnswers()));
         incorrectAnswers.setText(String.valueOf(handler.getIncorrectAnswers()));
 
     }
 
-
-
-    private void startTimerAnimation(){ //timer function
+    //Starts the timer animation
+    private void startTimerAnimation(){
         if(timeline != null){
             timeline.stop();
         }
-
-        endTime = System.currentTimeMillis() + timeDurationMillis; //time when quiz will finish
+        //Calculate the the time when the quiz will end
+        endTime = System.currentTimeMillis() + timeDurationMillis;
 
         timeline = new Timeline(new KeyFrame( Duration.millis(500), event -> {
             long diff = endTime - System.currentTimeMillis();
@@ -105,23 +105,24 @@ public class Controller implements Initializable {
     }
 
     public void buttonNextQuestion(){
-
-        if(!handler.isQuizStarted()){ //chech is quiz is out
+        //Check if the quiz is running
+        if(!handler.isQuizStarted()){
             return;
         }
-
+        //Get the selection
         RadioButton user_option = (RadioButton) questionOptions.getSelectedToggle(); //select opt
-
+        //Check if the answer is correct and log it into the handler
         boolean checkQuizOver = handler.checkQuizRunMore(currentQuestion, user_option.getText()); //check the answer and then nr. of c/i answer
+        //Update the answer labels
         correctAnswers.setText(String.valueOf(handler.getCorrectAnswers()));
         incorrectAnswers.setText(String.valueOf(handler.getIncorrectAnswers()));
-
-        if( checkQuizOver == false){
-
+        //End the quiz if there >= incorect answers
+        if(!checkQuizOver){
             endQuiz();
         }
 
-        option1.setSelected(false);  //remove buttons, and load next q
+        //Remove the selection from the radio buttons
+        option1.setSelected(false);
         option2.setSelected(false);
         option3.setSelected(false);
 
@@ -129,19 +130,20 @@ public class Controller implements Initializable {
 
     }
 
+    //load next q into the GUI
     private void loadNextQuestion(){
         currentQuestion = handler.getNextQuestion(); //get next q from Handler
-
+        //if there are no more questions end the quiz
         if(currentQuestion == null){
-
             endQuiz();
             return;
         }
 
-        questionText.setText(currentQuestion.getText()); //load q in textb
+        questionText.setText(currentQuestion.getQuestion()); //load q in textbox
 
-        List<String> options = currentQuestion.getShuffledAnswers(); //get random opt
+        List<String> options = currentQuestion.getShuffledAnswers();//get random opt
 
+        //load options into the buttons
         option1.setText(options.get(0));
         option2.setText(options.get(1));
         option3.setText(options.get(2));
@@ -151,16 +153,19 @@ public class Controller implements Initializable {
         nextQuestion.setDisable(true);
         Alert quizOver;
 
+        //Quiz ending conditions
         if(handler.getIncorrectAnswers() >= 5){
             quizOver = new Alert(Alert.AlertType.ERROR, "Quiz failed! Too many incorrect answers");
         }
         else if (handler.timedOut()) {
-            quizOver = new Alert(Alert.AlertType.ERROR, "Quiz failed! The time is up!");
+            if(handler.getCorrectAnswers() >=22)
+                quizOver = new Alert(Alert.AlertType.INFORMATION, "The time is up! Quiz passed! Congratulations!");
+            else
+                quizOver = new Alert(Alert.AlertType.ERROR, "The time is up! Quiz failed!");
         }
         else{
             quizOver = new Alert(Alert.AlertType.INFORMATION, "Quiz passed! Congratulations!");
         }
-
         quizOver.setTitle("Quiz over!");
         quizOver.showAndWait();
     }

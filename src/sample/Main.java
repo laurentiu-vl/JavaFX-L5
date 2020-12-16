@@ -7,11 +7,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 public class Main extends Application {
 
     @Override
@@ -25,7 +20,7 @@ public class Main extends Application {
 
         Controller fxController = loader.getController();
 
-        fxController.setManager(qHandler);
+        fxController.setHandler(qHandler);
 
         primaryStage.setTitle("Quiz Auto");
 
