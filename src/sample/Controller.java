@@ -40,6 +40,7 @@ public class Controller implements Initializable {
     private DateFormat timeFormat = new SimpleDateFormat("mm:ss");
     private Timeline timeline;
     private long timeDurationMillis = 30*60*1000;
+
     private long endTime;
 
     private QuizHandler handler;
@@ -165,20 +166,29 @@ public class Controller implements Initializable {
         //Quiz ending conditions
         if(handler.getIncorrectAnswers() >= 5){
             quizOver = new Alert(Alert.AlertType.ERROR, "Quiz failed! Too many incorrect answers");
+            quizOver.setTitle("Quiz over!");
+            quizOver.showAndWait();
         }
-        else if(handler.getCorrectAnswers() >=22){
-            quizOver = new Alert(Alert.AlertType.INFORMATION, "Quiz passed! Congratulations!");
-        }
+                     // else if(handler.getCorrectAnswers() >=22){
+                     // quizOver = new Alert(Alert.AlertType.INFORMATION, "Quiz passed! Congratulations!");
+                     //}
         else if (handler.timedOut()) {
-            if(handler.getCorrectAnswers() >=22)
+            if(handler.getCorrectAnswers() >=22){
                 quizOver = new Alert(Alert.AlertType.INFORMATION, "The time is up! Quiz passed! Congratulations!");
-            else
+                quizOver.setTitle("Quiz over!");
+                quizOver.showAndWait();}
+            else{
                 quizOver = new Alert(Alert.AlertType.ERROR, "The time is up! Quiz failed!");
+                quizOver.setTitle("Quiz over!");
+                quizOver.showAndWait();}
         }
-        else{
-            quizOver = new Alert(Alert.AlertType.INFORMATION, "Quiz passed! Congratulations!");
+
+        else {
+            quizOver = new Alert(Alert.AlertType.INFORMATION, "Quiz passed! Congratulations!"); //if 26 questions answered, stop the quiz
+            quizOver.setTitle("Quiz over!");
+            quizOver.showAndWait();
         }
-        quizOver.setTitle("Quiz over!");
-        quizOver.showAndWait();
+        //quizOver.setTitle("QuizMoloz over!");
+        //quizOver.showAndWait();
     }
 }

@@ -65,6 +65,7 @@ public class QuizHandler {
     //read the question and answers from .txt file
     private void getQuestionsFromFile(){
         String s1 = "",s2 = "",s3 = "",s4 = "",s5 = "";
+        int nr_questions = 0;
         try {
             File myObj = new File("src/data");
             Scanner myReader = new Scanner(myObj);
@@ -84,7 +85,9 @@ public class QuizHandler {
                 }
                 else if (i%5==0){
                     s5 = myReader.nextLine();
-                    questions.add(new Question(s1, s2, s3, s4, s5));
+                    if (nr_questions < 25)
+                        questions.add(new Question(s1, s2, s3, s4, s5));
+                        nr_questions = nr_questions + 1;
                 }
                 i++;
             }
@@ -107,7 +110,7 @@ public class QuizHandler {
      * @param question
      * @param answer
      * @return true if
-     * @return fakse if incorectAnswer are over >= 5
+     * @return false if incorectAnswer are over >= 5
      */
     public boolean checkQuizRunMore (Question question, String answer){
         //check if the answers are incorrect or correct
@@ -122,14 +125,11 @@ public class QuizHandler {
             setOver();
             return false;
         }
-        if(correctAns >= 22){ //aici ar trebui sa nu opreasca?
-            setOver();
-            return true;
-        }
+
         return true;
     }
 
-    //for iteration though the questions
+    //for iteration through the questions
     public Question getNextQuestion(){
         if(!timeOver){
             if(currentQuestion < getQuestions().size()){
