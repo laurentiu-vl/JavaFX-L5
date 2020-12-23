@@ -9,10 +9,10 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ubb.Controller">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="763.0" minWidth="10.0" prefWidth="521.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="548.0" minWidth="10.0" prefWidth="299.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="763.0" minWidth="10.0" prefWidth="521.0" />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -22,35 +22,35 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <Label fx:id="questionText" text="" wrapText="true">
+        <Label fx:id="questionText" text="" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="0">
             <padding>
-                <Insets left="25.0" />
+                <Insets right="15.0" />
             </padding>
         </Label>
-        <RadioButton fx:id="option1" mnemonicParsing="false" text="" wrapText="true" GridPane.rowIndex="1">
+        <RadioButton fx:id="option1" mnemonicParsing="false" text="" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <toggleGroup>
                 <ToggleGroup fx:id="questionOptions" />
             </toggleGroup>
         </RadioButton>
-        <RadioButton fx:id="option2" mnemonicParsing="false" text="" toggleGroup="$questionOptions" wrapText="true" GridPane.rowIndex="2" />
-        <RadioButton fx:id="option3" mnemonicParsing="false" text="" toggleGroup="$questionOptions" wrapText="true" GridPane.rowIndex="3" />
-        <Button fx:id="nextQuestion" mnemonicParsing="false" onAction="#buttonNextQuestion" prefHeight="31.0" prefWidth="188.0" text="Next question" textAlignment="CENTER" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-        <Label fx:id="correctAnswers" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-        <Label fx:id="incorrectAnswers" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-        <Button fx:id="startButton" mnemonicParsing="false" onAction="#startQuiz" text="Start / Restart" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-        <Label text="Correct Answers: " GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <RadioButton fx:id="option2" mnemonicParsing="false" text="" toggleGroup="$questionOptions" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <RadioButton fx:id="option3" mnemonicParsing="false" text="" toggleGroup="$questionOptions" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <Button fx:id="nextQuestion" mnemonicParsing="false" onAction="#buttonNextQuestion" prefHeight="35.0" prefWidth="200.0" text="Next question" textAlignment="CENTER" wrapText="true" GridPane.halignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <Label text="--> Time Left" GridPane.columnIndex="0" GridPane.rowIndex="0">
             <padding>
-                <Insets left="15.0" />
+                <Insets left="40.0"  />
             </padding></Label>
-        <Label text="Incorrect Answers:" GridPane.columnIndex="1" GridPane.rowIndex="2">
+        <Label fx:id="timeLeft" GridPane.columnIndex="0" GridPane.halignment="LEFT" />
+        <Label fx:id="correctAnswers"  wrapText="true" GridPane.halignment="LEFT" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <Label text="--> Correct Answers" GridPane.columnIndex="0" GridPane.rowIndex="1">
+        <padding>
+            <Insets left="15.0"  />
+        </padding></Label>
+        <Label fx:id="incorrectAnswers" wrapText="true" GridPane.halignment="LEFT" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <Label text="--> Incorrect Answers" GridPane.columnIndex="0" GridPane.rowIndex="2">
             <padding>
-                <Insets left="15.0" />
+                <Insets left="15.0"  />
             </padding></Label>
-        <Label text="Time left:" GridPane.columnIndex="1">
-            <padding>
-                <Insets left="15.0" />
-            </padding></Label>
-        <Label fx:id="timeLeft" GridPane.columnIndex="1" GridPane.halignment="RIGHT" />
+        <Button fx:id="startButton" mnemonicParsing="false" onAction="#startQuiz" text="Start / Restart" wrapText="true" prefHeight="50.0" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
     </children>
     <padding>
         <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />

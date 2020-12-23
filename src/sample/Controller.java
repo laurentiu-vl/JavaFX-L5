@@ -60,8 +60,8 @@ public class Controller implements Initializable {
     public void startQuiz(){
 
         if(handler == null){
-            Alert alert = new Alert(Alert.AlertType.ERROR, "The program manager could not be found!");
-            alert.setTitle("ManagerNotFoundException");
+            Alert alert = new Alert(Alert.AlertType.ERROR, "The program Handler could not be found!");
+            alert.setTitle("HandlerNotFoundException");
             alert.showAndWait();
             return;
         }
@@ -112,22 +112,28 @@ public class Controller implements Initializable {
         //Get the selection
         RadioButton user_option = (RadioButton) questionOptions.getSelectedToggle(); //select opt
         //Check if the answer is correct and log it into the handler
-        boolean checkQuizOver = handler.checkQuizRunMore(currentQuestion, user_option.getText()); //check the answer and then nr. of c/i answer
-        //Update the answer labels
-        correctAnswers.setText(String.valueOf(handler.getCorrectAnswers()));
-        incorrectAnswers.setText(String.valueOf(handler.getIncorrectAnswers()));
-        //End the quiz if there >= incorect answers
-        if(!checkQuizOver){
-            endQuiz();
+        if(user_option==null){
+            Alert noOption = new Alert(Alert.AlertType.ERROR, "No Option selected!!\nPlease select 1 option!!");
+            noOption.setTitle("NO Option!!");
+            noOption.showAndWait();
         }
+        else{
+            boolean checkQuizOver = handler.checkQuizRunMore(currentQuestion, user_option.getText()); //check the answer and then nr. of c/i answer
+            //Update the answer labels
+            correctAnswers.setText(String.valueOf(handler.getCorrectAnswers()));
+            incorrectAnswers.setText(String.valueOf(handler.getIncorrectAnswers()));
+            //End the quiz if there >= incorect answers
+            if (!checkQuizOver) {
+                endQuiz();
+            }
 
-        //Remove the selection from the radio buttons
-        option1.setSelected(false);
-        option2.setSelected(false);
-        option3.setSelected(false);
+            //Remove the selection from the radio buttons
+            option1.setSelected(false);
+            option2.setSelected(false);
+            option3.setSelected(false);
 
-        loadNextQuestion();
-
+            loadNextQuestion();
+        }
     }
 
     //load next q into the GUI
@@ -156,6 +162,9 @@ public class Controller implements Initializable {
         //Quiz ending conditions
         if(handler.getIncorrectAnswers() >= 5){
             quizOver = new Alert(Alert.AlertType.ERROR, "Quiz failed! Too many incorrect answers");
+        }
+        else if(handler.getCorrectAnswers() >=22){
+            quizOver = new Alert(Alert.AlertType.INFORMATION, "Quiz passed! Congratulations!");
         }
         else if (handler.timedOut()) {
             if(handler.getCorrectAnswers() >=22)

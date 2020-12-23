@@ -116,6 +116,10 @@ public class QuizHandler {
             setOver();
             return false;
         }
+        if(correctAns >= 22){
+            setOver();
+            return true;
+        }
         return true;
     }
 
