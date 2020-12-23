@@ -102,7 +102,13 @@ public class QuizHandler {
         this.quizStarted = false;
     }
 
-    //verify answer and check if the incorrect answers are >=5
+    /**
+     *
+     * @param question
+     * @param answer
+     * @return true if
+     * @return fakse if incorectAnswer are over >= 5
+     */
     public boolean checkQuizRunMore (Question question, String answer){
         //check if the answers are incorrect or correct
         if(question.getCorrectAns().equals(answer)){
@@ -116,7 +122,7 @@ public class QuizHandler {
             setOver();
             return false;
         }
-        if(correctAns >= 22){
+        if(correctAns >= 22){ //aici ar trebui sa nu opreasca?
             setOver();
             return true;
         }

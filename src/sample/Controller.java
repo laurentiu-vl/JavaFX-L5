@@ -155,6 +155,9 @@ public class Controller implements Initializable {
         option3.setText(options.get(2));
     }
 
+    /**
+     * Checks different conditions for the end of the Quiz (private atr)
+     */
     private void endQuiz(){
         nextQuestion.setDisable(true);
         Alert quizOver;

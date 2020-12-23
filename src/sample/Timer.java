@@ -34,7 +34,8 @@ public class Timer extends Thread {
             }
         }
     }
-    //Stop the timer
+
+
     public void stopTimer(){
         shouldExit = true;
     }

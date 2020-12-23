@@ -31,7 +31,9 @@ public class Question {
         return correctAns;
     }
 
-    //getter for answers, but shuffled
+    /**
+     * @return List of shuffledAnswers for each Question
+     */
     public List<String> getShuffledAnswers(){
         List<String> shuffledAnswers = new ArrayList<>(allAnswers);
         Collections.shuffle(shuffledAnswers);
